@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [distType, setDistType] = useState("feet_inches")
+  const [distType, setDistType] = useState("miles")
 
-  const [feet, setFeet] = useState(5280)
+  const [feet, setFeet] = useState(0)
   const [inches, setInches] = useState(0)
 
   const [km, setKm] = useState(0)
@@ -12,7 +12,7 @@ function App() {
 
   const [yards, setYards] = useState(0)
 
-  const [miles, setMiles] = useState(0)
+  const [miles, setMiles] = useState(1)
 
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(1)
@@ -24,36 +24,36 @@ function App() {
   const [rKph, setRKph] = useState(0)
 
   function calcSeconds() {
-    return ((hours * 3600) + (minutes * 60) + seconds)
+    return (((isNaN(hours) ? 0 : hours) * 3600) + ((isNaN(minutes) ? 0 : minutes) * 60) + (isNaN(seconds) ? 0 : seconds))
   }
 
   function runCalc() {
     if (distType === "feet_inches") {
-      let t_in = (feet * 12) + inches
+      let t_in = ((isNaN(feet) ? 0 : feet) * 12) + (isNaN(inches) ? 0 : inches)
       let in_s = t_in / calcSeconds()
-      let mph = (in_s * 3600 / 63360).toFixed(2)
-      let kmh = (in_s * 3600 / 39370.1).toFixed(2)
-      setRMph(isNaN(mph) ? 0 : mph)
-      setRKph(isNaN(kmh) ? 0 : kmh)
+      let mph = (in_s * 3600 / 63360)
+      let kmh = (in_s * 3600 / 39370.1)
+      setRMph(mph)
+      setRKph(kmh)
     } else if (distType === "km_meters") {
-      let t_m = (km * 1000) + meters
+      let t_m = ((isNaN(km) ? 0 : km) * 1000) + (isNaN(meters) ? 0 : meters)
       let m_s = t_m / calcSeconds()
-      let mph = (m_s * 3600 / 1609.34).toFixed(2)
-      let kmh = (m_s * 3600 / 1000).toFixed(2)
-      setRMph(isNaN(mph) ? 0 : mph)
-      setRKph(isNaN(kmh) ? 0 : kmh)
+      let mph = (m_s * 3600 / 1609.34)
+      let kmh = (m_s * 3600 / 1000)
+      setRMph(mph)
+      setRKph(kmh)
     } else if (distType === "yards") {
-      let y_s = yards / calcSeconds()
-      let mph = (y_s * 3600 / 1760).toFixed(2)
-      let kmh = (y_s * 3600 / 1093.61).toFixed(2)
-      setRMph(isNaN(mph) ? 0 : mph)
-      setRKph(isNaN(kmh) ? 0 : kmh)
+      let y_s = (isNaN(yards) ? 0 : yards) / calcSeconds()
+      let mph = (y_s * 3600 / 1760)
+      let kmh = (y_s * 3600 / 1093.61)
+      setRMph(mph)
+      setRKph(kmh)
     } else if (distType === "miles") {
-      let mi_s = miles / calcSeconds()
-      let mph = (mi_s * 3600).toFixed(2)
-      let kmh = (mi_s * 3600 * 1.60934).toFixed(2)
-      setRMph(isNaN(mph) ? 0 : mph)
-      setRKph(isNaN(kmh) ? 0 : kmh)
+      let mi_s = (isNaN(miles) ? 0 : miles) / calcSeconds()
+      let mph = (mi_s * 3600)
+      let kmh = (mi_s * 3600 * 1.60934)
+      setRMph(mph)
+      setRKph(kmh)
     }
   }
 
@@ -140,11 +140,14 @@ function App() {
     </div>
   </div>
   <div id="results" className="results">
+    <div>
+      <strong>Results</strong>
+    </div>
     <div id="result_mph">
-      {rMph} mph (Mi/H)
+      {rMph.toFixed(2)} mph (Mi/H)
     </div>
     <div id="result_kph">
-      {rKph} KM/H (kph)
+      {rKph.toFixed(2)} KM/H (kph)
     </div>
   </div>
   <div id="attrib">

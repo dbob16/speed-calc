@@ -18,13 +18,51 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Custom */
+
+#root {
+  width: 100%;
+}
+
+.border {
+  padding: 0.25rem;
+  margin: 0.5rem 0;
+  border: 1px solid #fffa;
+}
+
+.inline {
+  display: inline;
+}
+
+.grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  padding: 2em 0.5em;
+}
+
+.exposed {
+  display: contents;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  border-radius: 0.25em;
+  min-height: 7em;
+  max-height: 15em;
+  color: #000;
+  background-color: #bbb;
 }
 
 @media (prefers-reduced-motion: no-preference) {
